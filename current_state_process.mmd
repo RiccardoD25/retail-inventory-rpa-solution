@@ -1,0 +1,20 @@
+flowchart TD
+    A([Start: daily close]) --> B[Export POS sales and returns]
+    B --> C[Export ERP inventory and open POs]
+    C --> D[Clean and combine spreadsheets]
+    D --> E{More SKU/store rows?}
+    E -- Yes --> F[Calculate expected on-hand]
+    F --> G{Expected equals ERP?}
+    G -- Yes --> H[Mark reconciled]
+    G -- No --> I[Investigate duplicates, receipts, and cutoffs]
+    I --> J{Evidence supports adjustment?}
+    J -- Yes --> K[Enter ERP adjustment]
+    J -- No --> L[Escalate for supervisor review]
+    K --> M{At or below reorder point?}
+    H --> M
+    L --> E
+    M -- Yes --> N[Prepare replenishment request]
+    M -- No --> E
+    N --> E
+    E -- No --> O[Save evidence and email summary]
+    O --> P([End])

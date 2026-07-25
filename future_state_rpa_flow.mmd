@@ -1,0 +1,29 @@
+flowchart TD
+    A([Scheduled trigger]) --> B[Load config and credentials]
+    B --> C[Download POS and ERP data]
+    C --> D{Files, schema, date, totals valid?}
+    D -- No --> X[Quarantine batch and notify]
+    D -- Yes --> E[Normalize data and create queue items]
+    E --> F{Next queue item?}
+    F -- Yes --> G[Calculate expected balance and variance]
+    G --> H{Within approved auto-adjust rules?}
+    H -- No --> I[Create human exception with reason and evidence]
+    H -- Yes --> J[Update ERP and reread value]
+    J --> K{Verified after-value?}
+    K -- No --> R{Retries remaining?}
+    R -- Yes --> J
+    R -- No --> S[System exception and support alert]
+    K -- Yes --> L{At/below reorder point and supply insufficient?}
+    L -- Yes --> M[Create draft replenishment request]
+    L -- No --> N[Mark transaction successful]
+    M --> N
+    I --> F
+    S --> F
+    N --> F
+    F -- No --> O[Balance counts and control totals]
+    O --> P{Balanced?}
+    P -- No --> Q[Mark batch incomplete and escalate]
+    P -- Yes --> T[Publish KPI dataset and summary]
+    X --> U([End])
+    Q --> U
+    T --> U
