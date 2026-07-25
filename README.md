@@ -4,8 +4,6 @@ Week 3 project for Retail Innovations Inc. The proposed UiPath automation reconc
 
 ## Repository contents
 
-- `Inventory_RPA_Presentation.pptx` — 7-slide presentation with speaker notes
-- `Inventory_RPA_Process_Design_Document.docx` — comprehensive PDD and technical design
 - `current_state_process.mmd` — current manual process map source
 - `future_state_rpa_flow.mmd` — proposed automation flowchart source
 - `lucidchart_build_guide.md` — exact Lucidchart recreation instructions
